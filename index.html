@@ -77,9 +77,7 @@
                 <li class="list-group-item task-item" style="background-color: #1f1f1f;">
                     <span class="task-text">{{ task['task'] }}</span>
                     <div>
-                        <!-- Tombol Hapus -->
                         <a href="/delete/{{ task['id'] }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus tugas ini?')">Hapus</a>
-                        <!-- Form Perbarui Tugas -->
                         <form action="/update/{{ task['id'] }}" method="post" style="display: inline;">
                             <input type="text" name="task" placeholder="Perbarui tugas" required>
                             <button type="submit" class="btn btn-sm btn-secondary">Perbarui</button>
