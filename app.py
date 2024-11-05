@@ -3,13 +3,11 @@ import sqlite3
 
 app = Flask(__name__)
 
-# Fungsi untuk koneksi ke database SQLite
 def get_db_connection():
     conn = sqlite3.connect('todo_list.db')
     conn.row_factory = sqlite3.Row
     return conn
 
-# Membuat tabel jika belum ada
 with get_db_connection() as conn:
     conn.execute('''
         CREATE TABLE IF NOT EXISTS tasks (
@@ -19,7 +17,6 @@ with get_db_connection() as conn:
         )
     ''')
 
-# Menampilkan daftar tugas (Read)
 @app.route('/')
 def index():
     conn = get_db_connection()
@@ -27,7 +24,6 @@ def index():
     conn.close()
     return render_template('index.html', tasks=tasks)
 
-# Menambah tugas baru (Create)
 @app.route('/add', methods=['POST'])
 def add_task():
     task = request.form['task']
@@ -37,7 +33,6 @@ def add_task():
     conn.close()
     return redirect(url_for('index'))
 
-# Menghapus tugas (Delete)
 @app.route('/delete/<int:task_id>')
 def delete_task(task_id):
     conn = get_db_connection()
@@ -46,7 +41,6 @@ def delete_task(task_id):
     conn.close()
     return redirect(url_for('index'))
 
-# Memperbarui tugas (Update)
 @app.route('/update/<int:task_id>', methods=['POST'])
 def update_task(task_id):
     new_task = request.form['task']
